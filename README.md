@@ -10,11 +10,18 @@ repo root as-is (`.nojekyll` disables Jekyll processing).
 
 GitHub Pages → **Settings → Pages → Deploy from a branch → `main` / `/ (root)`**.
 
-Custom domain: once DNS is decided, add the domain under Settings → Pages (GitHub
-writes the `CNAME` file) and point an `A`/`ALIAS`/`CNAME` record per
-[GitHub's docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
-Working assumption: `konf.app` is the front door (this page), `konf.run` is the tenant
-runtime on the platform side.
+**Custom domains — both `konf.app` and `konf.run` serve this page.** GitHub Pages
+accepts only ONE custom domain per repo, so the pattern is:
+
+1. Set `konf.app` as the Pages custom domain (Settings → Pages; GitHub writes `CNAME`),
+   DNS per [GitHub's docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
+2. Redirect `konf.run/*` → `konf.app/*`. Both `.app` and `.run` are **HSTS-preloaded
+   TLDs** (browsers force HTTPS), so plain-HTTP registrar forwarding will NOT work —
+   use an HTTPS-capable redirect: Cloudflare free tier (proxy + redirect rule) or a
+   registrar that does TLS forwarding.
+
+The platform may later claim `*.konf.run` subdomains for tenant sites; the apex
+redirect above doesn't conflict with that.
 
 ## Before flipping public
 
