@@ -23,11 +23,14 @@ accepts only ONE custom domain per repo, so the pattern is:
 The platform may later claim `*.konf.run` subdomains for tenant sites; the apex
 redirect above doesn't conflict with that.
 
-## Before flipping public
+## Launch sequence
 
-- [ ] `hei@konf.app` must exist (the CTA mails it) — set up mail routing for konf.app first.
-- [ ] Verify the live-conference links (currently `cloudnativebergen.no`).
-- [ ] Repo → public, then enable Pages (Pages on a private repo requires a paid org plan).
+1. [ ] `hei@konf.app` mailbox/routing exists (the CTA mails it).
+2. [ ] DNS set up for both domains (Hans) per the pattern above.
+3. [ ] Repo → **public** (Pages on a private repo requires a paid org plan).
+4. [ ] Enable Pages: Settings → Pages → Deploy from a branch → `main` / `/ (root)`,
+       set `konf.app` as custom domain, enforce HTTPS.
+5. [ ] Verify `konf.run` redirect + the live-conference links (`cloudnativebergen.no`).
 
 ## Brand
 
