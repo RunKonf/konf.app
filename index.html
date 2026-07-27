@@ -72,6 +72,49 @@
     p { max-width: 44rem; color: var(--mist); }
     p strong { color: var(--snow); }
 
+    /* ---- Sticky top bar ---- */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transform: translateY(-100%);
+      opacity: 0;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: transform 0.35s ease, opacity 0.3s ease,
+                  background-color 0.35s ease, border-color 0.35s ease,
+                  backdrop-filter 0.35s ease;
+    }
+    .topbar.scrolled {
+      transform: translateY(0);
+      opacity: 1;
+      background: rgba(11, 18, 32, 0.72);
+      backdrop-filter: blur(14px) saturate(1.1);
+      -webkit-backdrop-filter: blur(14px) saturate(1.1);
+      border-bottom-color: var(--line);
+    }
+    .topbar-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+      height: 3.5rem;
+    }
+    .brand-lockup {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; color: var(--snow);
+      line-height: 1;
+    }
+    .brand-mark { width: 26px; height: 26px; flex: none; display: block; }
+    .brand-mark rect, .brand-mark line, .brand-mark path {
+      stroke: var(--ember); fill: none;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .brand-word {
+      font-family: var(--display); font-weight: 600;
+      font-size: 1.3rem; letter-spacing: 0.01em;
+    }
+    .brand-word .dot { color: var(--ember); }
+    .cta-sm { padding: 0.5rem 1.1rem; font-size: 0.9rem; }
+
     /* ---- Hero ---- */
     .hero {
       border-top: none;
@@ -79,6 +122,11 @@
       position: relative;
       overflow: hidden;
       text-align: center;
+    }
+    .hero-brand {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: nowrap;
     }
     .hero::before {
       content: '';
@@ -92,7 +140,7 @@
     }
     .hero .wrap { position: relative; }
     .hero p { margin-left: auto; margin-right: auto; }
-    .mark { width: 76px; height: 76px; }
+    .mark { width: clamp(3rem, 8vw, 4.5rem); height: clamp(3rem, 8vw, 4.5rem); flex: none; }
     .mark rect, .mark line, .mark path {
       stroke: var(--ember);
       fill: none;
@@ -104,7 +152,7 @@
       font-weight: 600;
       font-size: clamp(3rem, 9vw, 5rem);
       letter-spacing: 0.01em;
-      margin: 0.4rem 0 0;
+      margin: 0;
       line-height: 1.1;
     }
     .wordmark .dot { color: var(--ember); }
@@ -351,6 +399,11 @@
     }
     .pillar strong { display: block; font-family: var(--display); font-size: 1rem; margin-bottom: 0.3rem; }
     .pillar span { font-size: 0.88rem; color: var(--mist); }
+    .pillar-ic {
+      width: 26px; height: 26px; display: block;
+      color: var(--ember); margin-bottom: 0.8rem;
+      stroke-width: 1.7;
+    }
 
     /* ---- Screenshots ---- */
     .shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 1rem; margin-top: 2rem; }
@@ -371,7 +424,15 @@
 
     /* ---- Features grid ---- */
     .feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr)); gap: 0.7rem; margin-top: 1.8rem; }
-    .feat { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 0.75rem 0.95rem; font-size: 0.83rem; color: var(--mist); }
+    .feat {
+      display: grid; grid-template-columns: auto 1fr; gap: 0.7rem; align-items: start;
+      border: 1px solid var(--line); border-radius: 10px; background: var(--card);
+      padding: 0.75rem 0.95rem; font-size: 0.83rem; color: var(--mist);
+    }
+    .feat-ic {
+      width: 22px; height: 22px; flex: none; margin-top: 0.05rem;
+      color: var(--ember); stroke-width: 1.7;
+    }
     .feat code { display: block; font-family: var(--mono); font-size: 0.68rem; color: var(--ember); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.25rem; }
     .feat .soon { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 0.05rem 0.45rem; margin-left: 0.35rem; text-transform: uppercase; letter-spacing: 0.1em; }
 
@@ -431,15 +492,32 @@
 </head>
 <body>
 
-<header class="hero">
+<header class="topbar" id="topbar">
+  <nav class="topbar-inner wrap" aria-label="Primary">
+    <a class="brand-lockup" href="#top" aria-label="konf — back to top">
+      <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true">
+        <rect x="28" y="20" width="44" height="60" rx="9" stroke-width="7" />
+        <line x1="44" y1="31" x2="56" y2="31" stroke-width="6" />
+        <line x1="42" y1="44" x2="42" y2="70" stroke-width="7" />
+        <path d="M58 44 L45 57 L58 70" stroke-width="7" />
+      </svg>
+      <span class="brand-word">konf<span class="dot">.</span></span>
+    </a>
+    <a class="cta primary cta-sm" href="#early-access">I'm interested</a>
+  </nav>
+</header>
+
+<header class="hero" id="top">
   <div class="wrap">
-    <svg class="mark" viewBox="0 0 100 100" role="img" aria-label="Konf name-badge logo">
-      <rect x="28" y="20" width="44" height="60" rx="9" stroke-width="7" />
-      <line x1="44" y1="31" x2="56" y2="31" stroke-width="6" />
-      <line x1="42" y1="44" x2="42" y2="70" stroke-width="7" />
-      <path d="M58 44 L45 57 L58 70" stroke-width="7" />
-    </svg>
-    <h1 class="wordmark">konf<span class="dot">.</span></h1>
+    <div class="hero-brand">
+      <svg class="mark" viewBox="0 0 100 100" role="img" aria-label="Konf name-badge logo">
+        <rect x="28" y="20" width="44" height="60" rx="9" stroke-width="7" />
+        <line x1="44" y1="31" x2="56" y2="31" stroke-width="6" />
+        <line x1="42" y1="44" x2="42" y2="70" stroke-width="7" />
+        <path d="M58 44 L45 57 L58 70" stroke-width="7" />
+      </svg>
+      <h1 class="wordmark">konf<span class="dot">.</span></h1>
+    </div>
     <p class="tagline">Run your conference.</p>
     <p style="margin:0.9rem auto 0"><span style="display:inline-block; padding:0.28rem 0.9rem; border:1px solid var(--ember); border-radius:999px; color:var(--ember); font-family:var(--mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase">Launching soon</span></p>
     <p class="subline">The batteries-included platform for community tech conferences —
@@ -487,10 +565,10 @@
     <span class="label">What you get</span>
     <h2>The whole conference, one platform</h2>
     <div class="pillars">
-      <div class="pillar"><strong>The website is the product</strong><span>A designed, fast public site on your own domain — schedule, speakers, tickets. Not a widget in someone else's page.</span></div>
-      <div class="pillar"><strong>CFP to stage</strong><span>Submissions, reviews, acceptances, and a drag-and-drop program builder in one flow your whole team shares.</span></div>
-      <div class="pillar"><strong>Sponsors, handled</strong><span>CRM, tiers, e-signed contracts, follow-ups and invoicing hooks — the part nobody else ships.</span></div>
-      <div class="pillar"><strong>Speakers, cared for</strong><span>Messaging, travel support, workshop logistics, and signed Open Badges they can actually verify.</span></div>
+      <div class="pillar"><svg class="pillar-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg><strong>The website is the product</strong><span>A designed, fast public site on your own domain — schedule, speakers, tickets. Not a widget in someone else's page.</span></div>
+      <div class="pillar"><svg class="pillar-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg><strong>CFP to stage</strong><span>Submissions, reviews, acceptances, and a drag-and-drop program builder in one flow your whole team shares.</span></div>
+      <div class="pillar"><svg class="pillar-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg><strong>Sponsors, handled</strong><span>CRM, tiers, e-signed contracts, follow-ups and invoicing hooks — the part nobody else ships.</span></div>
+      <div class="pillar"><svg class="pillar-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg><strong>Speakers, cared for</strong><span>Messaging, travel support, workshop logistics, and signed Open Badges they can actually verify.</span></div>
     </div>
   </div>
 </section>
@@ -642,24 +720,24 @@
     <span class="label">Everything included</span>
     <h2>The full toolbox</h2>
     <div class="feat-grid">
-      <div class="feat"><code>cfp</code>Submissions, reviews, ratings, acceptance flow</div>
-      <div class="feat"><code>program</code>Drag-and-drop schedule across tracks and slots</div>
-      <div class="feat"><code>website</code>Own domain, theming, typed front-page builder</div>
-      <div class="feat"><code>sponsors</code>CRM, tiers, follow-ups, activity timeline</div>
-      <div class="feat"><code>contracts</code>Generated sponsorship agreements, e-signing</div>
-      <div class="feat"><code>budget<span class="soon">soon</span></code>Income live from tickets + sponsors, expenses, scenarios</div>
-      <div class="feat"><code>speakers</code>Messaging, travel support, workshop logistics</div>
-      <div class="feat"><code>badges</code>Signed Open Badges 3.0, Credly-compatible</div>
-      <div class="feat"><code>pwa + push</code>Installable app, schedule-change notifications</div>
-      <div class="feat"><code>ticketing</code>Checkin and Tito via a provider interface</div>
-      <div class="feat"><code>email</code>Templated speaker and sponsor email, your domain</div>
-      <div class="feat"><code>workshops</code>Workshop sessions with capacity and signup windows</div>
-      <div class="feat"><code>travel support</code>Multi-currency speaker reimbursement with receipts and approvals</div>
-      <div class="feat"><code>marketing studio</code>Social cards, speaker promo images and QR codes, generated in-app</div>
-      <div class="feat"><code>venue screens</code>Now-and-next room displays with sponsor ticker for event day</div>
-      <div class="feat"><code>next edition</code>Clone your conference for next year — speakers, sponsors and budget carry over</div>
-      <div class="feat"><code>cli</code>Organizer CLI via Homebrew — review proposals and run the sponsor pipeline from the terminal</div>
-      <div class="feat"><code>api<span class="soon">soon</span></code>Build your own frontend on the content API</div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg><div class="feat-body"><code>cfp</code>Submissions, reviews, ratings, acceptance flow</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z"/></svg><div class="feat-body"><code>program</code>Drag-and-drop schedule across tracks and slots</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418"/></svg><div class="feat-body"><code>website</code>Own domain, theming, typed front-page builder</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"/></svg><div class="feat-body"><code>sponsors</code>CRM, tiers, follow-ups, activity timeline</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 0 1 9 9v.375M10.125 2.25A3.375 3.375 0 0 1 13.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 0 1 3.375 3.375M9 15l2.25 2.25L15 12"/></svg><div class="feat-body"><code>contracts</code>Generated sponsorship agreements, e-signing</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z"/></svg><div class="feat-body"><code>budget<span class="soon">soon</span></code>Income live from tickets + sponsors, expenses, scenarios</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"/></svg><div class="feat-body"><code>speakers</code>Messaging, travel support, workshop logistics</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Zm6-10.125a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0Zm1.294 6.336a6.721 6.721 0 0 1-3.17.789 6.721 6.721 0 0 1-3.168-.789 3.376 3.376 0 0 1 6.338 0Z"/></svg><div class="feat-body"><code>badges</code>Signed Open Badges 3.0, Credly-compatible</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"/></svg><div class="feat-body"><code>pwa + push</code>Installable app, schedule-change notifications</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 0 1 0 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 0 1 0-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375Z"/></svg><div class="feat-body"><code>ticketing</code>Checkin and Tito via a provider interface</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg><div class="feat-body"><code>email</code>Templated speaker and sponsor email, your domain</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5"/></svg><div class="feat-body"><code>workshops</code>Workshop sessions with capacity and signup windows</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg><div class="feat-body"><code>travel support</code>Multi-currency speaker reimbursement with receipts and approvals</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"/></svg><div class="feat-body"><code>marketing studio</code>Social cards, speaker promo images and QR codes, generated in-app</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125Z"/></svg><div class="feat-body"><code>venue screens</code>Now-and-next room displays with sponsor ticker for event day</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg><div class="feat-body"><code>next edition</code>Clone your conference for next year — speakers, sponsors and budget carry over</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"/></svg><div class="feat-body"><code>cli</code>Organizer CLI via Homebrew — review proposals and run the sponsor pipeline from the terminal</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>api<span class="soon">soon</span></code>Build your own frontend on the content API</div></div>
     </div>
   </div>
 </section>
@@ -801,6 +879,30 @@
     <span>runs <a href="https://cloudnativedays.no" rel="noopener">Cloud Native Day Bergen</a> · <a href="https://github.com/RunKonf" rel="noopener">github.com/RunKonf</a></span>
   </div>
 </footer>
+
+<script>
+  (function () {
+    var topbar = document.getElementById('topbar');
+    if (!topbar) return;
+    var ticking = false;
+    function threshold() {
+      return Math.min(window.innerHeight * 0.6, 480);
+    }
+    function update() {
+      topbar.classList.toggle('scrolled', window.scrollY > threshold());
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
 
 </body>
 </html>
