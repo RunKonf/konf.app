@@ -11,26 +11,24 @@ repo root as-is (`.nojekyll` disables Jekyll processing).
 GitHub Pages → **Settings → Pages → Deploy from a branch → `main` / `/ (root)`**.
 
 **Custom domains — both `konf.app` and `konf.run` serve this page.** GitHub Pages
-accepts only ONE custom domain per repo, so the pattern is:
-
-1. Set `konf.app` as the Pages custom domain (Settings → Pages; GitHub writes `CNAME`),
-   DNS per [GitHub's docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
-2. Redirect `konf.run/*` → `konf.app/*`. Both `.app` and `.run` are **HSTS-preloaded
-   TLDs** (browsers force HTTPS), so plain-HTTP registrar forwarding will NOT work —
-   use an HTTPS-capable redirect: Cloudflare free tier (proxy + redirect rule) or a
-   registrar that does TLS forwarding.
+accepts only ONE custom domain per repo: `konf.app` is this repo's Pages domain;
+`konf.run` is served by a sibling redirect-shim repo (`RunKonf/konf.run`) with its
+own Pages site + certificate, because both TLDs are **HSTS-preloaded** (browsers
+force HTTPS, so plain-HTTP registrar forwarding cannot work).
 
 The platform may later claim `*.konf.run` subdomains for tenant sites; the apex
-redirect above doesn't conflict with that.
+redirect doesn't conflict with that.
 
 ## Launch sequence
 
-1. [ ] `hei@konf.app` mailbox/routing exists (the CTA mails it).
-2. [ ] DNS set up for both domains (Hans) per the pattern above.
-3. [ ] Repo → **public** (Pages on a private repo requires a paid org plan).
-4. [ ] Enable Pages: Settings → Pages → Deploy from a branch → `main` / `/ (root)`,
-       set `konf.app` as custom domain, enforce HTTPS.
-5. [ ] Verify `konf.run` redirect + the live-conference links (`cloudnativebergen.no`).
+1. [x] `hei@konf.app` mailbox/routing (registrar email forwarding, MX live).
+2. [x] DNS: both apexes → GitHub Pages A records (185.199.108–111.153).
+3. [x] Repo → **public** (2026-07-28).
+4. [x] Pages enabled: `main` / root, custom domain `konf.app`.
+5. [ ] Enforce HTTPS once the `konf.app` certificate is provisioned (Settings → Pages).
+6. [ ] `konf.run` redirect shim repo published + its Pages domain set to `konf.run`.
+7. [ ] Verify: `https://konf.app` serves, `konf.run` redirects, OG preview renders,
+       live-conference links resolve (`cloudnativebergen.no`).
 
 ## Brand
 
