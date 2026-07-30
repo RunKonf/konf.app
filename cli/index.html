@@ -583,7 +583,7 @@
           <line x1="12" y1="15" x2="12" y2="3"></line>
         </svg>
         <strong>Direct Download</strong>
-        <span>Grab the latest prebuilt binary for your platform from <a href="https://github.com/RunKonf/konfctl/releases/latest">GitHub Releases</a>.</span>
+        <span>Grab the latest prebuilt binary for your platform from <a href="https://github.com/RunKonf/konfctl/releases/latest">GitHub Releases</a>. Every release includes a Sigstore attestation for verifiable supply-chain security.</span>
       </div>
       <div class="pillar">
         <svg class="pillar-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -616,7 +616,7 @@
 <span class="p"># Filter and output as JSON for scripting</span>
 <span class="cmd">konf admin proposals list --status accepted --json | jq '.[].title'</span>
 
-<span class="p"># Agent-native mode for Claude/Cursor/Gemini</span>
+<span class="p"># Agent-native mode for Claude/Cursor/Gemini (protected by AGENT_GUARD_BLOCK safety guards)</span>
 <span class="cmd">konf --agent admin sponsors list</span></div>
     </div>
   </div>
