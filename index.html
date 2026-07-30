@@ -528,7 +528,10 @@
       </svg>
       <span class="brand-word">konf<span class="dot">.</span></span>
     </a>
-    <a class="cta primary cta-sm" href="#early-access">I'm interested</a>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <a href="/cli" style="color: var(--mist); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='var(--snow)'" onmouseout="this.style.color='var(--mist)'">CLI</a>
+      <a class="cta primary cta-sm" href="#early-access">I'm interested</a>
+    </div>
   </nav>
 </header>
 
@@ -984,7 +987,7 @@
 
 <footer>
   <div class="wrap">
-    <span>konf<span style="color:var(--ember)">.</span> — made in Bergen, Norway · konf.app · konf.run</span>
+    <span>konf<span style="color:var(--ember)">.</span> — made in Bergen, Norway · <a href="/">konf.app</a> · <a href="/cli">CLI</a> · konf.run</span>
     <span>runs <a href="https://cloudnativedays.no" rel="noopener">Cloud Native Days Norway</a> · <a href="https://github.com/RunKonf" rel="noopener">github.com/RunKonf</a></span>
   </div>
 </footer>

@@ -519,7 +519,7 @@
 
 <header class="topbar" id="topbar">
   <nav class="topbar-inner wrap" aria-label="Primary">
-    <a class="brand-lockup" href="#top" aria-label="konf — back to top">
+    <a class="brand-lockup" href="/" aria-label="konf — back to home">
       <svg class="brand-mark" viewBox="0 0 100 100" aria-hidden="true">
         <rect x="28" y="20" width="44" height="60" rx="9" stroke-width="7" />
         <line x1="44" y1="31" x2="56" y2="31" stroke-width="6" />
@@ -528,7 +528,10 @@
       </svg>
       <span class="brand-word">konf<span class="dot">.</span></span>
     </a>
-    <a class="cta primary cta-sm" href="#early-access">I'm interested</a>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <a href="/cli" style="color: var(--snow); text-decoration: none; font-size: 0.95rem; font-weight: 500;">CLI</a>
+      <a class="cta primary cta-sm" href="/#early-access">I'm interested</a>
+    </div>
   </nav>
 </header>
 
@@ -667,7 +670,7 @@
 </section>
 <footer>
   <div class="wrap">
-    <span>konf<span style="color:var(--ember)">.</span> — made in Bergen, Norway · konf.app · konf.run</span>
+    <span>konf<span style="color:var(--ember)">.</span> — made in Bergen, Norway · <a href="/">konf.app</a> · <a href="/cli">CLI</a> · konf.run</span>
     <span>runs <a href="https://cloudnativedays.no" rel="noopener">Cloud Native Days Norway</a> · <a href="https://github.com/RunKonf" rel="noopener">github.com/RunKonf</a></span>
   </div>
 </footer>
