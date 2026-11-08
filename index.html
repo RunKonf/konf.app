@@ -458,7 +458,7 @@
       color: var(--ember); stroke-width: 1.7;
     }
     .feat code { display: block; font-family: var(--mono); font-size: 0.68rem; color: var(--ember); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.25rem; }
-    .feat .soon { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 0.05rem 0.45rem; margin-left: 0.35rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .feat .soon, .plan .soon { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 0.05rem 0.45rem; margin-left: 0.35rem; text-transform: uppercase; letter-spacing: 0.1em; }
     .feat .soon.pro { color: var(--ember); border-color: rgba(232, 130, 60, 0.4); }
 
     /* ---- Nerd list ---- */
@@ -769,7 +769,7 @@
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg><div class="feat-body"><code>privacy</code>A privacy policy page for your organization, with GDPR consent recorded at signup</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg><div class="feat-body"><code>next edition</code>Clone your conference for next year — tiers, contract templates, team and goals carry over</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"/></svg><div class="feat-body"><code>cli</code>Organizer CLI via Homebrew — review proposals and run the sponsor pipeline from the terminal</div></div>
-      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>api<span class="soon">soon</span><span class="soon pro">pro</span></code>Build your own frontend on the GraphQL content API — a Pro capability when it lands</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>api + mcp<span class="soon">soon</span></code>GraphQL API on every plan; organization API clients, webhooks and MCP landing next</div></div>
     </div>
   </div>
 </section>
@@ -799,7 +799,7 @@
         ready to place — no re-keying, no CSV export. Countersign a sponsor contract and the deal
         moves to closed-won, the logo lands on the front page, and the invoice shows up on the
         follow-up list. Integrated beats assembled, and it's priced for community budgets: one
-        price per event, not six SaaS subscriptions deep.</p>
+        yearly price per organization, not six SaaS subscriptions deep.</p>
     </div>
   </div>
 </section>
@@ -807,68 +807,70 @@
 <section id="pricing">
   <div class="wrap">
     <span class="label">Pricing</span>
-    <h2>Free for free events. $249 per event for everything else.</h2>
-    <p>If your conference doesn't charge for tickets, Konf is <strong>free</strong> — the whole
-      platform, not a crippled tier. If it does charge, one flat fee per edition covers everything.
-      No per-attendee cut, no per-speaker seat, no upsell for the parts that matter.</p>
-
-    <div class="story-def">
-      <b>the whole rule</b> <i>— nothing to negotiate</i><br />
-      free to attend → <b>$0</b><br />
-      sells tickets → <b>$249</b> per event
-    </div>
+    <h2>Free for free events. One yearly price per organization for everything else.</h2>
+    <p>If your events are free to attend, Konf is <strong>free</strong> — the whole
+      platform, not a reduced tier. If you sell tickets, one yearly plan per organization covers
+      everything. No per-attendee cut, no per-speaker seat, no upsell for the parts that matter.</p>
 
     <div class="plans">
       <div class="plan">
-        <h3>free events</h3>
-        <div class="price">$0</div>
-        <div class="price-alt">no card, no expiry</div>
-        <p class="plan-when">Your event is <b>free to attend</b>. You get the same platform everyone
-          else gets — we just don't send an invoice.</p>
+        <h3>free</h3>
+        <div class="price">€0</div>
+        <div class="price-alt">per organization / year · no card</div>
+        <p class="plan-when">For organizations whose events are <b>free to attend</b>. The whole
+          platform, not a reduced tier.</p>
         <ul>
-          <li>Everything in the “per event” plan</li>
-          <li>Your own domain and conference branding</li>
-          <li>Signed Open Badges for your speakers</li>
+          <li>Website, CFP, program, speakers, sponsors, Open Badges, <code>konf</code> CLI</li>
+          <li>Your site on a konf.app address</li>
+          <li>One live event at a time</li>
+          <li>Past editions kept online read-only</li>
+          <li>Read-only API access with personal tokens <span class="soon">soon</span></li>
+          <li>Read-only MCP <span class="soon">soon</span></li>
         </ul>
       </div>
       <div class="plan lead">
-        <h3>per event</h3>
-        <div class="price">$249</div>
-        <div class="price-alt">~2,490 NOK · per event, ex. VAT</div>
-        <p class="plan-when">Your event <b>sells tickets</b>. One fee per edition — the whole
-          conference, not a module of it.</p>
+        <h3>basic</h3>
+        <div class="price">from €249</div>
+        <div class="price-alt">≈ $279 · per organization / year, ex. VAT</div>
+        <p class="plan-when">For an organization running <b>one paid conference</b>. Everything in
+          Free, plus:</p>
         <ul>
-          <li>Website on your own domain, theming, page builder</li>
-          <li>CFP, reviews, program &amp; schedule builder</li>
-          <li>Sponsor CRM, e-signed contracts, follow-ups</li>
-          <li>Speaker messaging, travel support, workshops</li>
-          <li>Signed Open Badges 3.0, PWA &amp; push</li>
-          <li>Email from a shared Konf domain — your name, your Reply-To</li>
-          <li>The <code>konf</code> CLI</li>
+          <li>Ticketed events</li>
+          <li>Your own domain</li>
+          <li>One live event at a time</li>
+          <li>Past editions online read-only with archive storage included (capped)</li>
+          <li>API write access <span class="soon">soon</span></li>
+          <li>One organization API client <span class="soon">soon</span></li>
+          <li>Webhooks <span class="soon">soon</span></li>
         </ul>
       </div>
       <div class="plan">
-        <h3>pro · enterprise</h3>
-        <div class="price words">Contact us</div>
-        <div class="price-alt">priced per conversation</div>
-        <p class="plan-when">You need <b>isolation, scale or paperwork</b> — not more features.
-          We'll set a list price once the last pieces ship; until then we'd rather talk than
-          publish a number we can't stand behind.</p>
+        <h3>pro</h3>
+        <div class="price">from €799</div>
+        <div class="price-alt">≈ $895 · per organization / year, ex. VAT</div>
+        <p class="plan-when">For <b>foundations, chapters and teams</b> running several events.
+          Everything in Basic, plus:</p>
         <ul>
-          <li>A verified email sending domain of your own</li>
-          <li>Your own dedicated email account and sending reputation</li>
-          <li>GraphQL API access for building your own frontend</li>
-          <li>Raised limits, priority support, SLA</li>
-          <li>DPA, contracts and procurement paperwork</li>
+          <li>Three live events at once</li>
+          <li>Unlimited archive (fair use)</li>
+          <li>Five API clients <span class="soon">soon</span></li>
+          <li>Provisioning through the API <span class="soon">soon</span></li>
+          <li>MCP write tools <span class="soon">soon</span></li>
+          <li>Your own verified sending domain <span class="soon">soon</span></li>
+          <li>Finer organizer roles <span class="soon">soon</span></li>
+          <li>Your own domain per edition <span class="soon">soon</span></li>
+          <li>Priority email support</li>
         </ul>
       </div>
     </div>
 
     <div class="price-note">
+      <p>Need SSO, a contractual SLA, a custom DPA or an agency setup? <a href="mailto:hei@konf.app?subject=Interested%20in%20Konf%20for%20our%20conference">Talk to us.</a></p>
       <p><strong>For comparison:</strong> a CFP tool alone runs about $499 per event above its
         free-event threshold — and it doesn't include your website, your sponsor pipeline, your
-        budget, or issuing credentials. Konf is $249 for the whole conference. Prices are ex. VAT;
-        Norwegian customers are invoiced in NOK with MVA, EU businesses with reverse charge.</p>
+        budget, or issuing credentials. Konf starts at €249 per year for the whole conference.
+        Prices are ex. VAT; Norwegian customers are invoiced in NOK with MVA, EU businesses with
+        reverse charge.</p>
     </div>
   </div>
 </section>
@@ -903,7 +905,7 @@
           <li>Self-serve signup — today we onboard you ourselves</li>
           <li>Connect-your-domain flow (site DNS in one step)</li>
           <li>Billing &amp; self-serve plans — free-to-attend events stay free</li>
-          <li>GraphQL API for teams that build their own site (Pro)</li>
+          <li>Organization API clients, webhooks and MCP tools</li>
           <li>Verified sending domain of your own (Pro)</li>
           <li>Per-conference push isolation (own VAPID keys)</li>
           <li>Network features — see below</li>
@@ -973,8 +975,8 @@
       <p>Konf already runs a real conference today; what's launching soon is opening it up to
         yours. We're lining up a first wave of community conferences for concierge onboarding:
         we sit down with your organizing team and get your website, CFP and sponsor pipeline
-        running together. <a href="#pricing">Free if your event is free to attend</a> — $249 per
-        event if it sells tickets.</p>
+        running together. <a href="#pricing">Free if your events are free to attend</a> — from €249
+        per year if you sell tickets.</p>
       <p><strong>Interested, or just curious?</strong> Get in touch and we'll keep you posted —
         no list-spam, just a hei when it's your turn.</p>
       <div class="cta-row">
