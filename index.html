@@ -71,6 +71,7 @@
     }
     p { max-width: 44rem; color: var(--mist); }
     p strong { color: var(--snow); }
+    p code { font-family: var(--mono); font-size: 0.88em; color: var(--snow); }
 
     /* ---- Sticky top bar ---- */
     .topbar {
@@ -196,6 +197,7 @@
       font-family: var(--mono);
       font-size: 0.82rem;
       line-height: 1.8;
+      margin: 0;
       padding: 1rem 1.2rem 1.2rem;
       white-space: pre;
       color: var(--mist);
@@ -769,7 +771,40 @@
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg><div class="feat-body"><code>privacy</code>A privacy policy page for your organization, with GDPR consent recorded at signup</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg><div class="feat-body"><code>next edition</code>Clone your conference for next year — tiers, contract templates, team and goals carry over</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"/></svg><div class="feat-body"><code>cli</code>Organizer CLI via Homebrew — review proposals and run the sponsor pipeline from the terminal</div></div>
-      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>api<span class="soon">soon</span><span class="soon pro">pro</span></code>Build your own frontend on the GraphQL content API — a Pro capability when it lands</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>api<span class="soon pro">pro</span></code>One GraphQL API runs everything, from the public site to the control panel</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="api">
+  <div class="wrap">
+    <span class="label">One GraphQL API</span>
+    <h2>API first</h2>
+    <p>Every part of Konf runs on one GraphQL API at <code>api.konf.app</code>. The public
+      conference site and the control panel, Kontroll at <code>my.konf.app</code>, are both clients
+      of that same API. Nothing sits behind an internal-only backend. Today the API is used by our own site, by Kontroll
+      and by signed-in organizers in the explorer; API clients for your own integrations are next.</p>
+    <div class="feat-grid">
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>one API for everything</code>Conference, program, speakers, sponsors and CFP, plus organization management: conferences, members, invitations, settings and the next edition</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg><div class="feat-body"><code>explorer &amp; schema</code>Interactive API explorer with saved queries and a public schema browser listing every type and field. <a href="https://my.konf.app/explorer/schema" rel="noopener">Browse the schema</a></div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg><div class="feat-body"><code>tenant isolation</code>Multi-tenant isolation on every request, scoped to one organization with signed tenant envelopes and per-caller rate limits</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z"/></svg><div class="feat-body"><code>tokens, mcp &amp; webhooks<span class="soon">soon</span></code>API clients and personal access tokens with read/write scopes that org owners create and revoke themselves, a hosted MCP server for AI agents, read-only first, and webhooks for integrations</div></div>
+    </div>
+    <div class="term term-wide">
+      <div class="term-bar"><i></i><i></i><i></i><span>POST https://api.konf.app/graphql</span></div>
+      <pre class="term-body"><code>query ConferenceOverview {
+  conference { title startDate endDate }
+  program {
+    days {
+      date
+      slots {
+        start
+        room
+        talk { title speakers { name } }
+      }
+    }
+  }
+}</code></pre>
     </div>
   </div>
 </section>
@@ -895,6 +930,7 @@
           <li>Per-conference sender identity on outgoing email</li>
           <li>Conference budget: live income, expenses, scenarios</li>
           <li>Ticketing via Checkin or Tito</li>
+          <li>One GraphQL API behind the site and the control panel, with a public schema browser</li>
         </ul>
       </div>
       <div class="road-col next">
@@ -903,7 +939,7 @@
           <li>Self-serve signup — today we onboard you ourselves</li>
           <li>Connect-your-domain flow (site DNS in one step)</li>
           <li>Billing &amp; self-serve plans — free-to-attend events stay free</li>
-          <li>GraphQL API for teams that build their own site (Pro)</li>
+          <li>API clients and tokens you create yourself, a hosted MCP server, and webhooks</li>
           <li>Verified sending domain of your own (Pro)</li>
           <li>Per-conference push isolation (own VAPID keys)</li>
           <li>Network features — see below</li>
