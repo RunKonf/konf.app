@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Konf — Run your conference.</title>
-  <meta name="description" content="Konf is the batteries-included platform for community tech conferences — website, CFP, program, speakers, sponsors. Built in Bergen by people who run one. Launching soon." />
+  <meta name="description" content="Konf is the batteries-included platform for community tech conferences — website, CFP, program, speakers, sponsors and tickets. Built in Bergen by people who run one. Request an invite." />
   <link rel="canonical" href="https://konf.app/" />
   <meta property="og:title" content="Konf — Run your conference." />
-  <meta property="og:description" content="The batteries-included platform for community tech conferences. Built in Bergen by people who run one. Launching soon." />
+  <meta property="og:description" content="The batteries-included platform for community tech conferences. Built in Bergen by people who run one. Request an invite." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://konf.app/" />
   <meta property="og:image" content="https://konf.app/og.png" />
@@ -515,6 +515,41 @@
     }
     footer .wrap { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: baseline; }
     footer a { color: var(--mist); }
+    /* ---- Tour, steps, invite form, FAQ ---- */
+    .tour { display: grid; gap: 2.5rem; margin-top: 2rem; }
+    .tour-item { display: grid; gap: 1rem; align-items: center; }
+    @media (min-width: 52rem) { .tour-item { grid-template-columns: 1fr 1fr; gap: 2rem; } .tour-item:nth-child(even) .tour-text { order: 2; } }
+    .tour-item h3 { font-family: var(--display); font-weight: 600; font-size: 1.25rem; margin: 0.3rem 0 0.4rem; }
+    .tour-item ul { margin: 0.6rem 0 0; padding-left: 1.1rem; color: var(--mist); font-size: 0.92rem; }
+    .tour-item img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 12px; background: var(--fjord); }
+    .soon-tag { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 0.05rem 0.45rem; margin-left: 0.35rem; text-transform: uppercase; letter-spacing: 0.1em; vertical-align: middle; }
+    .plan .soon { font-family: var(--mono); font-size: 0.62rem; color: var(--faint); border: 1px solid var(--line); border-radius: 999px; padding: 0.05rem 0.45rem; margin-left: 0.35rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .steps { list-style: none; counter-reset: step; margin: 1.6rem 0 0; padding: 0; display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+    .steps li { counter-increment: step; border: 1px solid var(--line); border-radius: 12px; background: var(--card); padding: 1.1rem 1.2rem; font-size: 0.9rem; color: var(--mist); }
+    .steps li::before { content: counter(step); display: block; font-family: var(--display); font-size: 1.6rem; color: var(--ember); line-height: 1; margin-bottom: 0.4rem; }
+    .steps li b { color: var(--snow); display: block; }
+    .invite-form { display: grid; gap: 1rem; margin-top: 1.6rem; max-width: 40rem; border: 1px solid var(--line); border-radius: 14px; background: var(--card); padding: 1.4rem; }
+    @media (min-width: 40rem) { .invite-form .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; } }
+    .invite-form .two { display: grid; gap: 1rem; }
+    .invite-form label { display: grid; gap: 0.35rem; font-size: 0.88rem; color: var(--snow); }
+    .invite-form label span { color: var(--faint); font-weight: 400; }
+    .invite-form input, .invite-form textarea { font: inherit; font-size: 1rem; color: var(--snow); background: var(--night); border: 1px solid var(--line); border-radius: 8px; padding: 0.65rem 0.75rem; width: 100%; }
+    .invite-form input:focus-visible, .invite-form textarea:focus-visible { outline: 2px solid var(--ember); outline-offset: 1px; }
+    .invite-form fieldset { border: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.9rem; color: var(--mist); }
+    .invite-form legend { font-size: 0.88rem; color: var(--snow); margin-bottom: 0.35rem; padding: 0; }
+    .invite-form input[type=radio] { width: auto; accent-color: var(--ember); }
+    .invite-form fieldset label { display: inline-flex; gap: 0.45rem; align-items: center; color: var(--mist); }
+    .invite-form button { justify-self: start; cursor: pointer; font: inherit; }
+    .invite-form button[disabled] { opacity: 0.6; cursor: wait; }
+    .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+    .form-note { font-size: 0.82rem; color: var(--faint); margin: 0; }
+    .form-status { font-size: 0.95rem; margin: 0; }
+    .form-status.ok { color: var(--aurora); }
+    .form-status.err { color: #e59a92; }
+    .faq { margin-top: 1.4rem; display: grid; gap: 0.6rem; max-width: 46rem; }
+    .faq details { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 0.85rem 1.1rem; }
+    .faq summary { cursor: pointer; font-weight: 600; color: var(--snow); }
+    .faq details p { margin: 0.6rem 0 0; font-size: 0.92rem; }
   </style>
 </head>
 <body>
@@ -532,7 +567,7 @@
     </a>
     <div style="display: flex; align-items: center; gap: 1.5rem;">
       <a href="/cli" style="color: var(--mist); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.2s;" onmouseover="this.style.color='var(--snow)'" onmouseout="this.style.color='var(--mist)'">CLI</a>
-      <a class="cta primary cta-sm" href="#early-access">I'm interested</a>
+      <a class="cta primary cta-sm" href="#invite">Request an invite</a>
     </div>
   </nav>
 </header>
@@ -549,9 +584,9 @@
       <h1 class="wordmark">konf<span class="dot">.</span></h1>
     </div>
     <p class="tagline">Run your conference.</p>
-    <p style="margin:0.9rem auto 0"><span style="display:inline-block; padding:0.28rem 0.9rem; border:1px solid var(--ember); border-radius:999px; color:var(--ember); font-family:var(--mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase">Launching soon</span></p>
+    <p style="margin:0.9rem auto 0"><span style="display:inline-block; padding:0.28rem 0.9rem; border:1px solid var(--ember); border-radius:999px; color:var(--ember); font-family:var(--mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase">Invite only · closed preview</span></p>
     <p class="subline">The batteries-included platform for community tech conferences —
-      website, CFP, program, speakers, sponsors. Built in Bergen, by people who run one.</p>
+      website, CFP, program, speakers, sponsors and tickets. Built in Bergen, by people who run one.</p>
 
     <div class="term" role="img" aria-label="Terminal showing konf run launching a conference">
       <div class="term-bar"><i></i><i></i><i></i><span>konf — zsh</span></div>
@@ -566,8 +601,8 @@
     </div>
 
     <div class="cta-row">
-      <a class="cta primary" href="#early-access">I'm interested</a>
-      <a class="cta ghost" href="https://cloudnativedays.no" rel="noopener">See a live conference →</a>
+      <a class="cta primary" href="#invite">Request an invite</a>
+      <a class="cta ghost" href="https://kontainerkonf.konf.run" rel="noopener">See the demo conference →</a>
     </div>
     <p class="domains-line"><b>konf.app</b> · <b>konf.run</b></p>
   </div>
@@ -728,19 +763,79 @@
   </div>
 </section>
 
-<section>
+<section id="tour">
   <div class="wrap">
-    <span class="label">See it running</span>
-    <h2>Seeing is believing</h2>
-    <p>Konf isn't a mockup — it runs a real conference today. A tour of the actual product:</p>
-    <div class="shots">
-      <figure class="shot wide"><div class="shot-frame"><img src="assets/konf-dashboard.webp" alt="The organizer dashboard with live conference widgets" loading="lazy" onerror="this.closest('figure').classList.add('pending')" /><span class="shot-ph">screenshot landing soon</span></div><figcaption><b>Mission control</b>One dashboard for the whole conference — CFP progress, ticket sales, sponsor pipeline, schedule health.</figcaption></figure>
-      <figure class="shot"><div class="shot-frame"><img src="assets/konf-sponsors.webp" alt="Sponsor CRM pipeline board with tiers and contract status" loading="lazy" onerror="this.closest('figure').classList.add('pending')" /><span class="shot-ph">screenshot landing soon</span></div><figcaption><b>Sponsor pipeline</b>Prospect → tier → e-signed contract → logo on the front page. The part nobody else ships.</figcaption></figure>
-      <figure class="shot"><div class="shot-frame"><img src="assets/konf-schedule.webp" alt="Drag-and-drop schedule builder with tracks" loading="lazy" onerror="this.closest('figure').classList.add('pending')" /><span class="shot-ph">screenshot landing soon</span></div><figcaption><b>Schedule builder</b>Drag talks across tracks and time slots; the public program updates itself.</figcaption></figure>
-      <figure class="shot"><div class="shot-frame"><img src="assets/konf-front-page.webp" alt="A live conference website front page" loading="lazy" onerror="this.closest('figure').classList.add('pending')" /><span class="shot-ph">screenshot landing soon</span></div><figcaption><b>Your public site</b>A designed, fast website on your own domain — composed from typed blocks.</figcaption></figure>
-      <figure class="shot"><div class="shot-frame"><img src="assets/konf-proposals.webp" alt="CFP proposal review interface" loading="lazy" onerror="this.closest('figure').classList.add('pending')" /><span class="shot-ph">screenshot landing soon</span></div><figcaption><b>CFP &amp; reviews</b>Submissions, ratings and acceptance in one flow the whole team shares.</figcaption></figure>
-      <figure class="shot"><div class="shot-frame"><img src="assets/konf-speakers.webp" alt="Speaker management overview" loading="lazy" onerror="this.closest('figure').classList.add('pending')" /><span class="shot-ph">screenshot landing soon</span></div><figcaption><b>Speakers, handled</b>Profiles, messaging, travel support and logistics — a speaker never falls between tools.</figcaption></figure>
-      <figure class="shot"><div class="shot-frame"><img src="assets/konf-mobile.webp" alt="The conference PWA on a phone" loading="lazy" onerror="this.closest('figure').classList.add('pending')" /><span class="shot-ph">screenshot landing soon</span></div><figcaption><b>In every pocket</b>Installs as an app; when a talk moves, its speakers get a push.</figcaption></figure>
+    <span class="label">Tour</span>
+    <h2>What running a conference on Konf looks like</h2>
+    <p>The screenshots below come from KontainerKonf, our demo conference. Every feature here runs
+      Cloud Native Days Norway today, unless it carries a <span class="soon-tag">soon</span> badge.</p>
+    <div class="tour">
+      <div class="tour-item">
+        <div class="tour-text">
+          <span class="label">CfP and speakers</span>
+          <h3>From call for papers to confirmed speakers</h3>
+          <p>Speakers submit on your site. Your team reviews and rates every proposal in one place,
+            then accepts or declines. Accepted speakers get an email and a notification, and confirm
+            their talk themselves.</p>
+          <ul><li>Co-speakers, messaging and travel support</li><li>Reminders to confirm, upload slides and finish travel claims</li></ul>
+        </div>
+        <img src="assets/tour/cfp.png" width="1600" height="1000" loading="lazy" alt="Proposal review in the organizer admin of KontainerKonf" />
+      </div>
+      <div class="tour-item">
+        <div class="tour-text">
+          <span class="label">Program and schedule</span>
+          <h3>Drag talks into the schedule</h3>
+          <p>Accepted talks are ready to place. Drag them across tracks and time slots, and the
+            public program updates. When a talk moves, its speakers get a push notification.</p>
+          <ul><li>Several tracks and days</li><li>Workshops with capacity and signup windows</li><li>Now-and-next screens for each room</li></ul>
+        </div>
+        <img src="assets/tour/program.png" width="1600" height="1000" loading="lazy" alt="The schedule builder for KontainerKonf" />
+      </div>
+      <div class="tour-item">
+        <div class="tour-text">
+          <span class="label">Sponsors</span>
+          <h3>A sponsor pipeline instead of a spreadsheet</h3>
+          <p>Track each sponsor from first contact to signed contract. Contracts are generated and
+            e-signed in Konf. When a contract is signed, the logo goes on your front page and the
+            invoice lands on the follow-up list.</p>
+          <ul><li>Tiers, activity timeline and action items</li><li>Ticket allocations for sponsors through discount codes</li></ul>
+        </div>
+        <img src="assets/tour/sponsors.png" width="1600" height="1000" loading="lazy" alt="The sponsor pipeline board for KontainerKonf" />
+      </div>
+      <div class="tour-item">
+        <div class="tour-text">
+          <span class="label">Tickets</span>
+          <h3>Sell tickets with the provider you already use</h3>
+          <p>Connect Checkin or Tito. Ticket sales feed the conference budget, so you see income
+            from tickets and sponsors against your target without exporting anything.</p>
+          <ul><li>Discount codes with usage tracking</li><li>Budget with expenses and scenarios</li></ul>
+        </div>
+        <img src="assets/tour/tickets.png" width="1600" height="1000" loading="lazy" alt="Ticket sales and budget overview for KontainerKonf" />
+      </div>
+      <div class="tour-item">
+        <div class="tour-text">
+          <span class="label">Speaker network</span>
+          <h3>One speaker profile across conferences <span class="soon-tag">soon</span></h3>
+          <p>Speakers keep one profile across every conference on Konf: bio, photo, talk history and
+            signed Open Badges. Your CfP starts pre-filled, and you can find speakers who have
+            spoken at other community events. Signed badges are live today; the shared profile
+            and directory are being built.</p>
+        </div>
+        <img src="assets/tour/speakers.png" width="1600" height="1000" loading="lazy" alt="A speaker profile with talk history and badges" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <span class="label">Demo</span>
+    <h2>Click around a conference site</h2>
+    <p>KontainerKonf is a made-up conference running on Konf, with a program, speakers and sponsors.
+      It is the public site your attendees would see, on a <code>konf.run</code> address like yours
+      would have.</p>
+    <div class="cta-row" style="justify-content: flex-start">
+      <a class="cta primary" href="https://kontainerkonf.konf.run" rel="noopener">Open kontainerkonf.konf.run →</a>
     </div>
   </div>
 </section>
@@ -834,7 +929,7 @@
         ready to place — no re-keying, no CSV export. Countersign a sponsor contract and the deal
         moves to closed-won, the logo lands on the front page, and the invoice shows up on the
         follow-up list. Integrated beats assembled, and it's priced for community budgets: one
-        price per event, not six SaaS subscriptions deep.</p>
+        yearly price per organization, not six SaaS subscriptions deep.</p>
     </div>
   </div>
 </section>
@@ -842,68 +937,48 @@
 <section id="pricing">
   <div class="wrap">
     <span class="label">Pricing</span>
-    <h2>Free for free events. $249 per event for everything else.</h2>
-    <p>If your conference doesn't charge for tickets, Konf is <strong>free</strong> — the whole
-      platform, not a crippled tier. If it does charge, one flat fee per edition covers everything.
-      No per-attendee cut, no per-speaker seat, no upsell for the parts that matter.</p>
-
-    <div class="story-def">
-      <b>the whole rule</b> <i>— nothing to negotiate</i><br />
-      free to attend → <b>$0</b><br />
-      sells tickets → <b>$249</b> per event
-    </div>
-
+    <h2>Free for free events. A yearly plan for everything else.</h2>
+    <p>If your events are free to attend, Konf is <strong>free</strong>: the whole platform, not a
+      reduced tier. If you sell tickets, you pay one yearly price per organization. There is no
+      monthly billing, no cut of ticket sales and no per-speaker seats.</p>
     <div class="plans">
       <div class="plan">
-        <h3>free events</h3>
-        <div class="price">$0</div>
-        <div class="price-alt">no card, no expiry</div>
-        <p class="plan-when">Your event is <b>free to attend</b>. You get the same platform everyone
-          else gets — we just don't send an invoice.</p>
+        <h3>free</h3>
+        <div class="price">€0</div>
+        <div class="price-alt">per organization / year · no card</div>
+        <p class="plan-when">For organizations whose events are <b>free to attend</b>.</p>
         <ul>
-          <li>Everything in the “per event” plan</li>
-          <li>Your own domain and conference branding</li>
-          <li>Signed Open Badges for your speakers</li>
+          <li>Website, CfP, program, speakers, sponsors, Open Badges and the <code>konf</code> CLI</li>
+          <li>Your site on a <code>&lt;name&gt;.konf.run</code> address</li>
         </ul>
       </div>
       <div class="plan lead">
-        <h3>per event</h3>
-        <div class="price">$249</div>
-        <div class="price-alt">~2,490 NOK · per event, ex. VAT</div>
-        <p class="plan-when">Your event <b>sells tickets</b>. One fee per edition — the whole
-          conference, not a module of it.</p>
+        <h3>basic</h3>
+        <div class="price words">Contact us</div>
+        <div class="price-alt">billed yearly · ex. VAT</div>
+        <p class="plan-when">For an organization running <b>one ticketed conference</b>.
+          Everything in Free, plus:</p>
         <ul>
-          <li>Website on your own domain, theming, page builder</li>
-          <li>CFP, reviews, program &amp; schedule builder</li>
-          <li>Sponsor CRM, e-signed contracts, follow-ups</li>
-          <li>Speaker messaging, travel support, workshops</li>
-          <li>Signed Open Badges 3.0, PWA &amp; push</li>
-          <li>Email from a shared Konf domain — your name, your Reply-To</li>
-          <li>The <code>konf</code> CLI</li>
+          <li>Ticketed events</li>
+          <li>Your own domain</li>
         </ul>
       </div>
       <div class="plan">
-        <h3>pro · enterprise</h3>
+        <h3>pro</h3>
         <div class="price words">Contact us</div>
-        <div class="price-alt">priced per conversation</div>
-        <p class="plan-when">You need <b>isolation, scale or paperwork</b> — not more features.
-          We'll set a list price once the last pieces ship; until then we'd rather talk than
-          publish a number we can't stand behind.</p>
+        <div class="price-alt">billed yearly · ex. VAT</div>
+        <p class="plan-when">For <b>foundations, chapters and teams</b> running several events.
+          Everything in Basic, plus:</p>
         <ul>
-          <li>A verified email sending domain of your own</li>
-          <li>Your own dedicated email account and sending reputation</li>
-          <li>GraphQL API access for building your own frontend</li>
-          <li>Raised limits, priority support, SLA</li>
-          <li>DPA, contracts and procurement paperwork</li>
+          <li>Several live events at once</li>
+          <li>Priority email support</li>
         </ul>
       </div>
     </div>
-
     <div class="price-note">
-      <p><strong>For comparison:</strong> a CFP tool alone runs about $499 per event above its
-        free-event threshold — and it doesn't include your website, your sponsor pipeline, your
-        budget, or issuing credentials. Konf is $249 for the whole conference. Prices are ex. VAT;
-        Norwegian customers are invoiced in NOK with MVA, EU businesses with reverse charge.</p>
+      <p>We set the price for paid plans together with the first conferences. Ask in the invite
+        form or write to <a href="mailto:hei@konf.app">hei@konf.app</a>. Norwegian customers are
+        invoiced in NOK with MVA, EU businesses with reverse charge.</p>
     </div>
   </div>
 </section>
@@ -1000,30 +1075,61 @@
   </div>
 </section>
 
-<section id="early-access">
+<section id="invite">
   <div class="wrap">
-    <span class="label">Status</span>
-    <h2>Launching soon</h2>
-    <div class="early">
-      <h3>Not open for signup yet — but the platform is real.</h3>
-      <p>Konf already runs a real conference today; what's launching soon is opening it up to
-        yours. We're lining up a first wave of community conferences for concierge onboarding:
-        we sit down with your organizing team and get your website, CFP and sponsor pipeline
-        running together. <a href="#pricing">Free if your event is free to attend</a> — $249 per
-        event if it sells tickets.</p>
-      <p><strong>Interested, or just curious?</strong> Get in touch and we'll keep you posted —
-        no list-spam, just a hei when it's your turn.</p>
-      <div class="cta-row">
-        <a class="cta primary" href="mailto:hei@konf.app?subject=Interested%20in%20Konf%20for%20our%20conference">Say hei — hei@konf.app</a>
-        <a class="cta ghost" href="https://github.com/RunKonf" rel="noopener">GitHub →</a>
+    <span class="label">Get started</span>
+    <h2>Request an invite</h2>
+    <p>Konf is in closed preview. Sign-up needs an invite code, and we send codes to a few
+      conferences at a time so we can help each one get set up.</p>
+    <ol class="steps">
+      <li><b>Request an invite</b>Tell us about your conference in the form below.</li>
+      <li><b>Get your code</b>We email you a sign-up code. You create your organization and get a site on <code>&lt;name&gt;.konf.run</code>.</li>
+      <li><b>Set up in private</b>Open your CfP, add sponsors and build the program while the site is in closed preview.</li>
+      <li><b>Pay when you go live</b>Free events stay free. Ticketed events pick a yearly plan before launch.</li>
+    </ol>
+
+    <form class="invite-form" id="invite-form" novalidate>
+      <div class="two">
+        <label>Your name<input name="name" required maxlength="100" autocomplete="name" /></label>
+        <label>Email<input name="email" type="email" required maxlength="254" autocomplete="email" /></label>
       </div>
+      <div class="two">
+        <label>Conference name<input name="conference" required maxlength="200" /></label>
+        <label>Expected attendees<input name="size" required maxlength="50" placeholder="e.g. 300" /></label>
+      </div>
+      <fieldset>
+        <legend>Do you sell tickets?</legend>
+        <label><input type="radio" name="ticketed" value="false" required /> No, it is free to attend</label>
+        <label><input type="radio" name="ticketed" value="true" /> Yes, ticketed</label>
+      </fieldset>
+      <label>Anything else? <span>(optional)</span><textarea name="message" rows="4" maxlength="2000"></textarea></label>
+      <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off" /></label></div>
+      <button class="cta primary" type="submit">Request an invite</button>
+      <p class="form-status" id="invite-status" role="status" aria-live="polite"></p>
+      <p class="form-note">We store what you enter here to answer your request. See <a href="/privacy">privacy</a>.</p>
+    </form>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <span class="label">FAQ</span>
+    <h2>Questions organizers ask</h2>
+    <div class="faq">
+      <details><summary>Why invite only?</summary><p>We onboard a few conferences at a time and help each one set up. Self-serve sign-up opens once that process is smooth.</p></details>
+      <details><summary>Is it really free for free events?</summary><p>Yes. If nobody pays to attend, you get the whole platform and no invoice.</p></details>
+      <details><summary>How does billing work?</summary><p>Paid plans are billed once a year, per organization. There is no monthly option and no cut of ticket sales. You pay when your site goes live, not while you set it up.</p></details>
+      <details><summary>Can we use our own domain?</summary><p>Every conference gets a <code>&lt;name&gt;.konf.run</code> address. Paid plans can use their own domain.</p></details>
+      <details><summary>Which ticketing providers work?</summary><p>Checkin and Tito today. Konf reads ticket sales from them; attendees buy tickets through the provider.</p></details>
+      <details><summary>Who runs Konf?</summary><p>The team behind Cloud Native Days Norway in Bergen. Konf runs that conference every year.</p></details>
+      <details><summary>Can we get our data out?</summary><p>Everything is available through the same GraphQL API that the site and the control panel use.</p></details>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <span>konf<span style="color:var(--ember)">.</span> — made in Bergen, Norway · <a href="/">konf.app</a> · <a href="/cli">CLI</a> · konf.run</span>
+    <span>konf<span style="color:var(--ember)">.</span> — made in Bergen, Norway · <a href="/">konf.app</a> · <a href="/cli">CLI</a> · <a href="/privacy">Privacy</a> · konf.run</span>
     <span>runs <a href="https://cloudnativedays.no" rel="noopener">Cloud Native Days Norway</a> · <a href="https://github.com/RunKonf" rel="noopener">github.com/RunKonf</a></span>
   </div>
 </footer>
@@ -1049,6 +1155,78 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
+  })();
+  (function () {
+    var API = 'https://api.konf.app/graphql';
+    var MIN_WAIT = 3100; // the API drops requests sent less than 3 s after the token
+    var form = document.getElementById('invite-form');
+    if (!form) return;
+    var status = document.getElementById('invite-status');
+    var button = form.querySelector('button');
+    var token = null, tokenAt = 0;
+
+    function gql(query, variables) {
+      return fetch(API, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ query: query, variables: variables })
+      }).then(function (r) { return r.json(); });
+    }
+    function say(text, kind) { status.textContent = text; status.className = 'form-status ' + (kind || ''); }
+    function loadToken() {
+      return gql('{ inviteRequestToken }').then(function (r) {
+        token = r && r.data && r.data.inviteRequestToken;
+        tokenAt = Date.now();
+        if (!token) throw new Error('no token');
+      });
+    }
+    var tokenReady = loadToken().catch(function () {});
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      var f = form.elements;
+      button.disabled = true;
+      say('Sending…');
+      tokenReady
+        .then(function () { return token ? null : loadToken(); })
+        .then(function () {
+          var wait = MIN_WAIT - (Date.now() - tokenAt);
+          return new Promise(function (ok) { setTimeout(ok, Math.max(0, wait)); });
+        })
+        .then(function () {
+          return gql('mutation RequestInvite($input: RequestInviteInput!) { requestInvite(input: $input) }', {
+            input: {
+              name: f.name.value, email: f.email.value, conference: f.conference.value,
+              size: f.size.value, ticketed: f.ticketed.value === 'true',
+              message: f.message.value || null, website: f.website.value, token: token
+            }
+          });
+        })
+        .then(function (r) {
+          var err = r.errors && r.errors[0];
+          if (!err && r.data && r.data.requestInvite) {
+            form.reset();
+            say('Thanks. We have your request and will email you when we can send an invite.', 'ok');
+            return;
+          }
+          var ext = (err && err.extensions) || {};
+          if (ext.code === 'RATE_LIMITED') {
+            say('Too many requests from you just now. Please wait a while and try again.', 'err');
+          } else if (ext.field === 'token') {
+            token = null; tokenReady = loadToken().catch(function () {});
+            say('The form expired. Please press the button again.', 'err');
+          } else if (ext.field) {
+            say('Please check the ' + ext.field + ' field: ' + err.message + '.', 'err');
+          } else {
+            throw new Error('unexpected');
+          }
+        })
+        .catch(function () {
+          say('Something went wrong. Try again, or email hei@konf.app.', 'err');
+        })
+        .then(function () { button.disabled = false; });
+    });
   })();
 </script>
 
