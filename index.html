@@ -550,6 +550,11 @@
     .faq details { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 0.85rem 1.1rem; }
     .faq summary { cursor: pointer; font-weight: 600; color: var(--snow); }
     .faq details p { margin: 0.6rem 0 0; font-size: 0.92rem; }
+    .snip { margin: 0.9rem 0 0; background: #0a0f19; border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem 1rem; overflow-x: auto; font-family: var(--mono); font-size: 0.78rem; line-height: 1.55; color: var(--snow); }
+    .tour-item > * { min-width: 0; }
+    .term-body { overflow-x: auto; }
+    .snip .c { color: var(--faint); }
+    .subline code { font-family: var(--mono); font-size: 0.9em; color: var(--snow); }
   </style>
 </head>
 <body>
@@ -586,18 +591,17 @@
     <p class="tagline">Run your conference.</p>
     <p style="margin:0.9rem auto 0"><span style="display:inline-block; padding:0.28rem 0.9rem; border:1px solid var(--ember); border-radius:999px; color:var(--ember); font-family:var(--mono); font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase">Invite only · closed preview</span></p>
     <p class="subline">The batteries-included platform for community tech conferences —
-      website, CFP, program, speakers, sponsors and tickets. Built in Bergen, by people who run one.</p>
+      website, CFP, program, speakers, sponsors and tickets. Everything runs on one GraphQL API, and the
+      <code>konf</code> CLI covers the daily organizer work. Built in Bergen, by people who run one.</p>
 
-    <div class="term" role="img" aria-label="Terminal showing konf run launching a conference">
+    <div class="term" role="img" aria-label="Terminal showing konf CLI commands">
       <div class="term-bar"><i></i><i></i><i></i><span>konf — zsh</span></div>
-      <div class="term-body"><span class="p">$</span> <span class="cmd">konf run cloud-native-days-norway</span>
-<span class="ok">✓</span> <span class="k">website</span>   <span class="v">live on your own domain</span>
-<span class="ok">✓</span> <span class="k">cfp</span>       <span class="v">open · scored by the whole team</span>
-<span class="ok">✓</span> <span class="k">program</span>   <span class="v">4 tracks · drag-and-drop schedule</span>
-<span class="ok">✓</span> <span class="k">speakers</span>  <span class="v">messaged · badges signed (Open Badges 3.0)</span>
-<span class="ok">✓</span> <span class="k">sponsors</span>  <span class="v">CRM · contracts e-signed</span>
-
-<span class="warm">conference is running.</span> <span class="v" lang="no">gå og ta en kaffe ☕</span><span class="cursor" aria-hidden="true"></span></div>
+      <div class="term-body"><span class="p">$</span> <span class="cmd">konf login</span>                <span class="v"># browser sign-in, pick your conference</span>
+<span class="p">$</span> <span class="cmd">konf admin proposals list --status submitted --sort rating</span>
+<span class="p">$</span> <span class="cmd">konf admin proposals review &lt;id&gt; --content 4 --relevance 3 --speaker 5</span>
+<span class="p">$</span> <span class="cmd">konf admin sponsors list --status negotiating,closedWon</span>
+<span class="p">$</span> <span class="cmd">konf admin tickets stats --json</span> <span class="v">| jq .</span>
+<span class="cursor" aria-hidden="true"></span></div>
     </div>
 
     <div class="cta-row">
@@ -778,6 +782,9 @@
             then accepts or declines. Accepted speakers get an email and a notification, and confirm
             their talk themselves.</p>
           <ul><li>Co-speakers, messaging and travel support</li><li>Reminders to confirm, upload slides and finish travel claims</li></ul>
+          <pre class="snip"><code><span class="c"># review from the terminal</span>
+konf admin proposals list --status submitted --sort rating
+konf admin proposals review &lt;id&gt; --content 4 --relevance 3 --speaker 5</code></pre>
         </div>
         <img src="assets/tour/cfp.png" width="1600" height="1000" loading="lazy" alt="Proposal review in the organizer admin of KontainerKonf" />
       </div>
@@ -788,6 +795,14 @@
           <p>Accepted talks are ready to place. Drag them across tracks and time slots, and the
             public program updates. When a talk moves, its speakers get a push notification.</p>
           <ul><li>Several tracks and days</li><li>Workshops with capacity and signup windows</li><li>Now-and-next screens for each room</li></ul>
+          <pre class="snip"><code>query Program {
+  program {
+    days {
+      date
+      slots { start end room talk { title speakers { name } } }
+    }
+  }
+}</code></pre>
         </div>
         <img src="assets/tour/program.png" width="1600" height="1000" loading="lazy" alt="The schedule builder for KontainerKonf" />
       </div>
@@ -799,6 +814,12 @@
             e-signed in Konf. When a contract is signed, the logo goes on your front page and the
             invoice lands on the follow-up list.</p>
           <ul><li>Tiers, activity timeline and action items</li><li>Ticket allocations for sponsors through discount codes</li></ul>
+          <pre class="snip"><code>query Sponsors {
+  sponsors {
+    tier { name level }
+    sponsor { name website logoUrl }
+  }
+}</code></pre>
         </div>
         <img src="assets/tour/sponsors.png" width="1600" height="1000" loading="lazy" alt="The sponsor pipeline board for KontainerKonf" />
       </div>
@@ -809,6 +830,9 @@
           <p>Connect Checkin or Tito. Ticket sales feed the conference budget, so you see income
             from tickets and sponsors against your target without exporting anything.</p>
           <ul><li>Discount codes with usage tracking</li><li>Budget with expenses and scenarios</li></ul>
+          <pre class="snip"><code><span class="c"># sales, participants, complimentary seats</span>
+konf admin tickets stats
+konf admin tickets stats --json | jq .</code></pre>
         </div>
         <img src="assets/tour/tickets.png" width="1600" height="1000" loading="lazy" alt="Ticket sales and budget overview for KontainerKonf" />
       </div>
@@ -820,6 +844,13 @@
             signed Open Badges. Your CfP starts pre-filled, and you can find speakers who have
             spoken at other community events. Signed badges are live today; the shared profile
             and directory are being built.</p>
+          <pre class="snip"><code>query Directory {
+  speakerDirectory(query: "kubernetes", first: 20) {
+    nodes { name topics links }
+    hasNextPage
+    endCursor
+  }
+}</code></pre>
         </div>
         <img src="assets/tour/speakers.png" width="1600" height="1000" loading="lazy" alt="A speaker profile with talk history and badges" />
       </div>
@@ -865,7 +896,7 @@
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20.25h12m-7.5-3v3m3-3v3m-10.125-3h17.25c.621 0 1.125-.504 1.125-1.125V4.875c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125Z"/></svg><div class="feat-body"><code>venue screens</code>Now-and-next room displays with sponsor ticker for event day</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg><div class="feat-body"><code>privacy</code>A privacy policy page for your organization, with GDPR consent recorded at signup</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg><div class="feat-body"><code>next edition</code>Clone your conference for next year — tiers, contract templates, team and goals carry over</div></div>
-      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"/></svg><div class="feat-body"><code>cli</code>Organizer CLI via Homebrew — review proposals and run the sponsor pipeline from the terminal</div></div>
+      <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"/></svg><div class="feat-body"><code>cli</code>Organizer CLI as prebuilt binaries — review proposals and run the sponsor pipeline from the terminal</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>api<span class="soon pro">pro</span></code>One GraphQL API runs everything, from the public site to the control panel</div></div>
     </div>
   </div>
@@ -879,6 +910,8 @@
       conference site and the control panel, Kontroll at <code>my.konf.app</code>, are both clients
       of that same API. Nothing sits behind an internal-only backend. Today the API is used by our own site, by Kontroll
       and by signed-in organizers in the explorer; API clients for your own integrations are next.</p>
+    <p><strong>What's next:</strong> API clients and tokens you create yourself, webhooks, a hosted
+      MCP server, a connect-your-domain flow and self-serve sign-up.</p>
     <div class="feat-grid">
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5"/></svg><div class="feat-body"><code>one API for everything</code>Conference, program, speakers, sponsors and CFP, plus organization management: conferences, members, invitations, settings and the next edition</div></div>
       <div class="feat"><svg class="feat-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/></svg><div class="feat-body"><code>explorer &amp; schema</code>Interactive API explorer with saved queries and a public schema browser listing every type and field. <a href="https://my.konf.app/explorer/schema" rel="noopener">Browse the schema</a></div></div>
@@ -937,92 +970,72 @@
 <section id="pricing">
   <div class="wrap">
     <span class="label">Pricing</span>
-    <h2>Free for free events. A yearly plan for everything else.</h2>
+    <h2>Free for free events. One yearly price per organization for everything else.</h2>
     <p>If your events are free to attend, Konf is <strong>free</strong>: the whole platform, not a
-      reduced tier. If you sell tickets, you pay one yearly price per organization. There is no
-      monthly billing, no cut of ticket sales and no per-speaker seats.</p>
+      reduced tier. If you sell tickets, one yearly plan per organization covers everything. No
+      monthly billing, no per-attendee cut, no per-speaker seat.</p>
     <div class="plans">
       <div class="plan">
         <h3>free</h3>
         <div class="price">€0</div>
         <div class="price-alt">per organization / year · no card</div>
-        <p class="plan-when">For organizations whose events are <b>free to attend</b>.</p>
+        <p class="plan-when">For organizations whose events are <b>free to attend</b>. The whole
+          platform, not a reduced tier.</p>
         <ul>
-          <li>Website, CfP, program, speakers, sponsors, Open Badges and the <code>konf</code> CLI</li>
+          <li>Website, CfP, program, speakers, sponsors, Open Badges, <code>konf</code> CLI</li>
           <li>Your site on a <code>&lt;name&gt;.konf.run</code> address</li>
+          <li>One live event at a time</li>
+          <li>Past editions kept online read-only</li>
+          <li>Read-only API access with personal tokens <span class="soon">soon</span></li>
+          <li>Read-only MCP <span class="soon">soon</span></li>
         </ul>
       </div>
       <div class="plan lead">
         <h3>basic</h3>
-        <div class="price words">Contact us</div>
-        <div class="price-alt">billed yearly · ex. VAT</div>
-        <p class="plan-when">For an organization running <b>one ticketed conference</b>.
-          Everything in Free, plus:</p>
+        <div class="price">from €249</div>
+        <div class="price-alt">≈ $279 · per organization / year, ex. VAT</div>
+        <p class="plan-when">For an organization running <b>one paid conference</b>. Everything in
+          Free, plus:</p>
         <ul>
           <li>Ticketed events</li>
           <li>Your own domain</li>
+          <li>One live event at a time</li>
+          <li>Past editions online read-only with archive storage included (capped)</li>
+          <li>API write access <span class="soon">soon</span></li>
+          <li>One organization API client <span class="soon">soon</span></li>
+          <li>Webhooks <span class="soon">soon</span></li>
         </ul>
       </div>
       <div class="plan">
         <h3>pro</h3>
         <div class="price words">Contact us</div>
-        <div class="price-alt">billed yearly · ex. VAT</div>
+        <div class="price-alt">per organization / year, ex. VAT</div>
         <p class="plan-when">For <b>foundations, chapters and teams</b> running several events.
           Everything in Basic, plus:</p>
         <ul>
-          <li>Several live events at once</li>
+          <li>Three live events at once</li>
+          <li>Unlimited archive (fair use)</li>
+          <li>Five API clients <span class="soon">soon</span></li>
+          <li>Provisioning through the API <span class="soon">soon</span></li>
+          <li>MCP write tools <span class="soon">soon</span></li>
+          <li>Your own verified sending domain <span class="soon">soon</span></li>
+          <li>Finer organizer roles <span class="soon">soon</span></li>
+          <li>Your own domain per edition <span class="soon">soon</span></li>
           <li>Priority email support</li>
         </ul>
       </div>
     </div>
     <div class="price-note">
-      <p>We set the price for paid plans together with the first conferences. Ask in the invite
-        form or write to <a href="mailto:hei@konf.app">hei@konf.app</a>. Norwegian customers are
-        invoiced in NOK with MVA, EU businesses with reverse charge.</p>
+      <p>Need SSO, a contractual SLA, a custom DPA or an agency setup? <a href="mailto:hei@konf.app?subject=Interested%20in%20Konf%20for%20our%20conference">Talk to us.</a></p>
+      <p><strong>For comparison:</strong> a CFP tool alone runs about $499 per event above its
+        free-event threshold, and it doesn't include your website, your sponsor pipeline, your
+        budget, or issuing credentials. Konf starts at €249 per year for the whole conference.
+        Prices are ex. VAT; Norwegian customers are invoiced in NOK with MVA, EU businesses with
+        reverse charge.</p>
     </div>
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <span class="label">Roadmap</span>
-    <h2>Shipping today, targeting next</h2>
-    <p>Konf is developed in the open and battle-tested on a real conference. Here's an honest map
-      of where it stands.</p>
-    <div class="road">
-      <div class="road-col now">
-        <h3>✓ shipping today</h3>
-        <ul>
-          <li>Public website on your own domain, per-conference theming</li>
-          <li>CFP, reviews and acceptance flow</li>
-          <li>Drag-and-drop program &amp; schedule builder</li>
-          <li>Front-page builder with typed blocks</li>
-          <li>Sponsor CRM: tiers, e-signed contracts, activity timeline</li>
-          <li>Speaker messaging, travel support, workshop logistics</li>
-          <li>Signed Open Badges 3.0 speaker credentials</li>
-          <li>PWA with push notifications</li>
-          <li>In-app notification hub for organizers and speakers</li>
-          <li>Per-conference sender identity on outgoing email</li>
-          <li>Conference budget: live income, expenses, scenarios</li>
-          <li>Ticketing via Checkin or Tito</li>
-          <li>One GraphQL API behind the site and the control panel, with a public schema browser</li>
-        </ul>
-      </div>
-      <div class="road-col next">
-        <h3>› targeting next</h3>
-        <ul>
-          <li>Self-serve signup — today we onboard you ourselves</li>
-          <li>Connect-your-domain flow (site DNS in one step)</li>
-          <li>Billing &amp; self-serve plans — free-to-attend events stay free</li>
-          <li>API clients and tokens you create yourself, a hosted MCP server, and webhooks</li>
-          <li>Verified sending domain of your own (Pro)</li>
-          <li>Per-conference push isolation (own VAPID keys)</li>
-          <li>Network features — see below</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section>
   <div class="wrap">
@@ -1040,26 +1053,6 @@
   </div>
 </section>
 
-<section>
-  <div class="wrap">
-    <span class="label">For the nerds</span>
-    <h2>Details we sweat so you don't have to</h2>
-    <div class="nerd">
-      <div class="nerd-row"><code>your-domain.tld</code><div>Every conference on its own domain with its own theme — one deployment, many tenants, resolved per request from the Host header and scoped to the organization that owns it.</div></div>
-      <div class="nerd-row"><code>open-badges/3.0</code><div>Speaker badges are cryptographically signed Verifiable Credentials — baked SVG and PNG, importable to Credly, verifiable by the 1EdTech validator.</div></div>
-      <div class="nerd-row"><code>pwa + push</code><div>The site installs as an app, with icons and theme colour generated per conference. Move a talk and Web Push reaches its speakers on the spot — and a lost connection lands on a real offline page, not a browser error.</div></div>
-      <div class="nerd-row"><code>ticketing</code><div>Bring your ticketing provider — Checkin and Tito supported today, more via a provider interface.</div></div>
-      <div class="nerd-row"><code>page-builder</code><div>Compose your front page from typed blocks — hero, program highlights, countdown, venue, FAQ. No raw-HTML footguns.</div></div>
-      <div class="nerd-row"><code>volunteers</code><div>A signup form on your own site, consent recorded with it, and the alert lands with your volunteer crew rather than everyone. Approve or decline with a note and send the welcome mail from the same screen — plus a small separate roster for the crew who shoot and run the day.</div></div>
-      <div class="nerd-row"><code>organizer-teams</code><div>Teams are a soft lens, never a lock. Put your CFP people, sponsor people and volunteer wranglers in teams and each notification finds its own crew — with its own Slack channel and sending identity. Configure nothing and everyone gets everything, exactly as before.</div></div>
-      <div class="nerd-row"><code>gdpr</code><div>Consent is a record, not a checkbox: data processing, public profile, photography and marketing tracked separately, each with a timestamp and the version of the policy that was on screen. The privacy page names your organization as controller and points complaints at the right supervisory authority — Datatilsynet if you're in Norway.</div></div>
-      <div class="nerd-row"><code>co-speakers</code><div>Two people, one talk. Invite your co-speaker by email and they get a tokenised link that expires and asks them to sign in before it counts. Accept and they're on the proposal and in its message thread; decline and the inviter hears why.</div></div>
-      <div class="nerd-row"><code>cron</code><div>The nagging runs itself. A daily pass reminds speakers to confirm their talk, upload slides and finish travel claims — deduplicated by a marker document, so nobody gets the same nudge twice. Monday morning a digest lands in Slack: tickets, revenue against target, sponsor pipeline, CFP numbers.</div></div>
-      <div class="nerd-row"><code>attestations</code><div>Every CLI release carries Sigstore build provenance — a GitHub attestation binding each archive to the exact commit and workflow that produced it, on all five platform targets, with checksums alongside. Verify it before you trust the binary.</div></div>
-      <div class="nerd-row"><code>battle-tested</code><div>Konf runs Cloud Native Days Norway — every feature survives a real conference before it ships to yours.</div></div>
-    </div>
-  </div>
-</section>
 
 <section>
   <div class="wrap">
